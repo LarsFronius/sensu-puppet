@@ -55,7 +55,8 @@ Puppet::Type.type(:sensu_dashboard_config).provide(:json) do
   end
 
   def user=(value)
-    conf['dashboard']['user'] = value
+    puts resource[:auth]
+    conf['dashboard']['user'] = value unless resource[:auth] == false
   end
 
   def password
@@ -63,6 +64,16 @@ Puppet::Type.type(:sensu_dashboard_config).provide(:json) do
   end
 
   def password=(value)
-    conf['dashboard']['password'] = value
+    conf['dashboard']['password'] = value unless resource[:auth] == false
   end
+
+  def auth
+    ! conf['dashboard']['password'].nil?
+  end
+
+  def auth=(value)
+    conf['dashboard'].delete('password')
+    conf['dashboard'].delete('user')
+  end
+
 end

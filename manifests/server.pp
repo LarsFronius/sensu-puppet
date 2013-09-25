@@ -14,6 +14,7 @@ class sensu::server(
   $dashboard_port     = '8080',
   $dashboard_user     = 'admin',
   $dashboard_password = 'secret',
+  $dashboard_auth     = 'true',
   $enabled            = 'false',
   $purge_config       = 'false',
 ) {
@@ -73,5 +74,6 @@ class sensu::server(
     port     => $dashboard_port,
     user     => $dashboard_user,
     password => $dashboard_password,
+    auth     => $dashboard_auth
   }
 }

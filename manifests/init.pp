@@ -25,8 +25,9 @@ class sensu (
   $api_port                 = '4567',
   $dashboard_host           = $::ipaddress,
   $dashboard_port           = '8080',
-  $dashboard_user           = 'admin',
-  $dashboard_password       = 'secret',
+  $dashboard_auth           = true,
+  $dashboard_user           = undef,
+  $dashboard_password       = undef,
   $subscriptions            = [],
   $client_address           = $::ipaddress,
   $client_name              = $::fqdn,
@@ -53,6 +54,10 @@ class sensu (
   Class['sensu::client'] ~>
   Class['sensu::service::client'] ->
   Anchor['sensu::end']
+
+  if (($dashboard_user != undef or $dashboard_password != undef) and ($dashboard_auth == false)) {
+    fail("${module_name} can only handle either dashboard authentication or not")
+  }
 
   if $server == 'true' or $server == true {
     if $client == 'true' or $client == true {
@@ -95,6 +100,7 @@ class sensu (
     dashboard_port      => $dashboard_port,
     dashboard_user      => $dashboard_user,
     dashboard_password  => $dashboard_password,
+    dashboard_auth      => $dashboard_auth,
     enabled             => $server,
     purge_config        => $purge_config,
   }

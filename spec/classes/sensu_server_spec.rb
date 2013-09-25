@@ -50,6 +50,7 @@ describe 'sensu::server', :type => :class do
       :dashboard_port           => '5678',
       :dashboard_user           => 'user',
       :dashboard_password       => 'mypass',
+      :dashboard_auth           => 'false',
       :enabled                  => 'true'
     } }
 
@@ -70,7 +71,8 @@ describe 'sensu::server', :type => :class do
       'port'      => '5678',
       'user'      => 'user',
       'password'  => 'mypass',
-      'ensure'    => 'present'
+      'ensure'    => 'present',
+      'auth'      => false
     ) }
   end # setting params
 

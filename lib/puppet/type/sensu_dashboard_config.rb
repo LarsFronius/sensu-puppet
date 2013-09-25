@@ -43,6 +43,12 @@ Puppet::Type.newtype(:sensu_dashboard_config) do
     defaultto 'sensu'
   end
 
+  newproperty(:auth) do
+    desc "If dashboard authentication should be activated or not"
+
+    defaultto true
+  end
+
   newproperty(:password) do
     desc "The password to use when connecting to the Sensu Dashboard"
   end
